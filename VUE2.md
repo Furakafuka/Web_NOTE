@@ -673,5 +673,73 @@
 
 ### 插槽
 
+1. 允许开发者在封装组件时，把==不确定的、希望由用户指定的部分==定义为插槽。
+
+   ![image-20220322152846197](https://raw.githubusercontent.com/Furakafuka/ABC/main/202203221528844.png)
+
+2. 可以通过 <slot> 元素定义插槽，从而为用户预留内容占位符。
+
+   ![image-20220322153628389](https://raw.githubusercontent.com/Furakafuka/ABC/main/202203221536084.png)
+
+   1. 每一个插槽都要有一个名称，如果省略，默认为default
+
+3. 渲染到指定插槽
+
+   1. 使用```<template v-slot:name>```来指定渲染
+
+   ![image-20220322154132469](https://raw.githubusercontent.com/Furakafuka/ABC/main/202203221541793.png)
+
+   2. template只起到包裹元素的作用
+   3. 可以在<slot>中指定默认内容(后备内容)
+
+4. 具名插槽
+
+   1. v-slot 也有缩写，即把参数之前的所有内容 (v-slot:) 替换为字符 #。
+
+      例如 v-slot:header可以被重写为 #header：
+
+5. 作用域插槽
+
+   1. 可以为预留的 <slot> 插槽绑定 props 数据，这种带有 props 数据的 <slot> 叫做“作用域插槽”。
+   2. 封装组件时，为预留的属性<slot>提供属性对应的值。
+   3. 一般取名为scope
+   4. 使用{}结构来进行解构赋值，可以直接使用括号内的变量
 
 
+
+
+
+
+
+### 自定义指令
+
+1. vue 中的自定义指令分为两类，分别是：私有自定义指令和全局自定义指令
+
+
+
+#### 私有自定义指令
+
+1. 在每个 vue 组件中，可以在 directives 节点下声明私有自定义指令。
+
+   ![image-20220322164305689](https://raw.githubusercontent.com/Furakafuka/ABC/main/202203221643064.png)
+
+2. 在使用自定义指令时，需要加上 v- 前缀。
+
+   ![image-20220322164810872](https://raw.githubusercontent.com/Furakafuka/ABC/main/202203221648974.png)
+
+3. 通过binding获取指令的参数值：使用第二个形参来获取指令的参数值
+
+   ![image-20220322164950472](https://raw.githubusercontent.com/Furakafuka/ABC/main/202203221649578.png)
+
+   1. ==expression是用户在等号后面写的值，而只有value才能使用==
+
+4. 自定义指令update
+
+   1. bind函数只在指令第一次绑定到元素时调用，==当 DOM 更新时 bind 函数不会被触发。==
+   2. ![image-20220322165505133](https://raw.githubusercontent.com/Furakafuka/ABC/main/202203221655238.png)
+
+5. 函数简写
+
+   ![image-20220322165712158](https://raw.githubusercontent.com/Furakafuka/ABC/main/202203221657208.png)
+
+   
