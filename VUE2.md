@@ -633,3 +633,45 @@
 
 
 
+
+
+
+
+## day3
+
+### 动态组件
+
+1. 动态切换组件的显示和隐藏
+
+2. vue 提供了一个内置的 <component> 组件，专门用来实现动态组件的渲染。示例代码如下：
+
+   	1. ![image-20220322144716798](https://raw.githubusercontent.com/Furakafuka/ABC/main/202203221447344.png)
+
+   2. 在点击时对comName重新赋值
+
+3. keep-alive保持状态
+
+   1. 组件切换时会被销毁和重新创建
+   2. ![image-20220322145814777](https://raw.githubusercontent.com/Furakafuka/ABC/main/202203221458012.png)
+   3. keep-alive可以把组件进行缓存，而不是销毁
+
+4. keep-alive组件的include属性
+
+   1. 选择指定的组件进行缓存
+   2. ![image-20220322150423404](https://raw.githubusercontent.com/Furakafuka/ABC/main/202203221504647.png)
+   3. include和exclude不能同时使用
+
+5. 组建的名字
+
+   1. 在export default中可以使用name属性设定组件的名字
+   2. 组件的注册名称：以标签的形式，把注册好的组件，渲染和使用
+   3. 声明名称：实现组件缓存和在调试页面中使用
+
+
+
+
+
+### 插槽
+
+
+
