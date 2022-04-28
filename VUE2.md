@@ -742,4 +742,187 @@
 
    ![image-20220322165712158](https://raw.githubusercontent.com/Furakafuka/ABC/main/202203221657208.png)
 
+
+
+
+#### 全局自定义指令
+
+1. 全局共享的自定义指令需要通过```Vue.directive()```进行声明
+
+   ![image-20220322200748136](https://raw.githubusercontent.com/Furakafuka/ABC/main/202203222008166.png)
+
+
+
+
+
+
+
+### axios
+
+1. 原本的方法过于麻烦，不推荐
+2. 在main.js中挂载原型```vue.prototype.axios=axios```
+   1. 之后只需要使用```this.axios.gets```访问原型实例即可
+   2. 直接使用```this。$http.get```即可
+3. 使用```axios.defaults.baseURL```来设定根路径
+   1. 之后直接写后面的路径即可
+4. 缺点：无法实现api接口的复用
+
+
+
+
+
+## 路由
+
+### 前端路由的概念与原理
+
+1. SPA与前端路由
+
+   1. SPA 指的是一个 web 网站只有唯一的一个 HTML 页面，所有组件的展示与切换都在这唯一的一个页面内完成。此时，不同组件之间的切换需要通过前端路由来实现。
+   2. ==在 SPA 项目中，不同功能之间的切换，要依赖于前端路由来完成！==
+
+2. 锚链接
+
+   1. 会产生历史，不刷新
+   2. 可以跳转到指定的位置
+   3. ==前端路由是哈希地址和组件的对应关系==
+
+3. 前端路由工作方式
+
+   1. 用户点击了页面上的路由链接
+
+   2. 导致了 URL 地址栏中的 Hash 值发生了变化
+
+   3. 前端路由监听了到 Hash 地址的变化
+
+   4. 前端路由把当前 Hash 地址对应的组件渲染都浏览器中
+
+      ![image-20220322215603216](https://raw.githubusercontent.com/Furakafuka/ABC/main/202203222156401.png)
+
+
+
+### vue-router 的基本使用
+
+1. 安装：```1 npm i vue-router@3.5.2 -S```
+
+2. 在 src 源代码目录下，新建 router/index.js 路由模块，并初始化如下的代码
+
+   ```js
+   1．导入 Vue 和 VueRouter 的包
+   import Vue from 'vue'
+   import VueRouter from 'vue-router'
    
+   
+   2．调用 Vue．use（）函数，把 VueRouter 安装为Vue 的插件
+   Vue.use(VueRouter)
+   
+   3．创建路由的实例对象
+   const router =new VueRouter()
+   
+   4．向外共享路由的实例对象
+   export default router
+   ```
+
+3. 导入路由模块
+
+   ```js
+   import Vue from 'vue'
+   import App from './App.vue"
+   
+   1.导入路由模块
+   import router from '@/router'
+   new Vue({
+   render: h => h(App),
+   
+   2.挂载路由模块
+   router: router
+   }). $mount(' #app')
+   ```
+
+
+
+4. 声明路由链接和占位符：在 src/App.vue 组件中，使用 vue-router 提供的 <router-link> 和 <router-view> 声明路由链接和占位符：
+
+   ![image-20220322221718733](https://raw.githubusercontent.com/Furakafuka/ABC/main/202203222217878.png)
+
+5. 声明匹配规则
+
+   ![image-20220322221847853](https://raw.githubusercontent.com/Furakafuka/ABC/main/202203222218975.png)
+
+   
+
+### vue-router的常见用法
+
+#### 重定向
+
+1. 斜线 / 没有匹配规则
+2. 重定向：访问A地址是强制跳转到C地址
+3. 语法：```{path：/redirect：/home}```
+
+#### 嵌套路由
+
+1. 通过路由实现组件的嵌套展示，叫做嵌套路由。
+
+   1. ![image-20220323152100668](https://raw.githubusercontent.com/Furakafuka/ABC/main/202203231521172.png)
+
+   2. 语法：```<router-link to="/about/tab1"></router-link>```
+
+   3. 子路由链接和子路由占位符设定在父级about.vue下
+
+      ![image-20220323152504505](https://raw.githubusercontent.com/Furakafuka/ABC/main/202203231525623.png)
+
+   4. 子路由规则需要使用使用chlidren声明
+
+   ![image-20220323152630871](https://raw.githubusercontent.com/Furakafuka/ABC/main/202203231526059.png)
+
+2. 默认子路由：如果某路由的path为空，则为默认子路由
+
+3. 动态路由匹配
+
+   1. 常规写法的复用性差
+
+   2. 把 Hash 地址中可变的部分定义为参数项，从而提高路由规则的复用性。
+
+   3. 在 vue-router 中使用英文的冒号（:）来定义路由的参数项。示例代码如下：![image-20220323153920766](https://raw.githubusercontent.com/Furakafuka/ABC/main/202203231539896.png)
+
+   4. 具体那部电影的值可以用route的param拿到（```this.$route.params.id```）
+
+4. $route：路由的参数对象，\$router：路由的导航对象
+
+5. 使用props接收参数：在路由规则中开启props传参
+
+![image-20220323155316297](https://raw.githubusercontent.com/Furakafuka/ABC/main/202203231553489.png)
+
+6. 在hash地址中，/ 后面的参数是路径参数
+
+7. 在hash地址中， ？ 后面的是查询参数
+8. 在this.$route中，path只是路径部分，fullpath才是完整路径
+
+#### 导航
+
+1.  声明式导航 & 编程式导航
+
+   1. 点击链接实现导航的方式，叫做声明式导航。例如：
+      * 普通网页中点击 <a> 链接、vue 项目中点击 <router-link> 都属于声明式导航
+   2. 调用 API 方法实现导航的方式，叫做编程式导航。例如：
+      * 普通网页中调用 location.href 跳转到新页面的方式，属于编程式导航
+
+2. 编程式导航
+
+   1. this.\$router.push('hash 地址'):跳转到指定 hash 地址，并增加一条历史记录
+   2. this.\$router.replace('hash 地址'):跳转到指定的 hash 地址，并替换掉当前的历史记录
+   3. this.\$router.go(数值 n):实现导航历史前进、后退
+
+3. 导航守卫
+
+   1. ![image-20220323163205314](https://raw.githubusercontent.com/Furakafuka/ABC/main/202203231632488.png)
+
+   2. 全局前置守卫：每次发生路由的导航跳转时，都会触发全局前置守卫。
+
+      1. ![image-20220323163358278](https://raw.githubusercontent.com/Furakafuka/ABC/main/202203231633433.png)
+      2. 形参
+         1. to：将要访问的路由的对象
+         2. from：离开的路由的信息
+         3. next：调用next()表示放行
+            1. 当前用户拥有后台主页的访问权限，直接放行：next()
+            2. 当前用户没有后台主页的访问权限，强制其跳转到登录页面next('/login')
+            3. 当前用户没有后台主页的访问权限，不允许跳转到后台主页：next(false)

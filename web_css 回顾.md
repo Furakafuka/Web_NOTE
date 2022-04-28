@@ -7,7 +7,7 @@
    2. title:鼠标悬停的效果
    3. width 和 height:调整宽度和高度
 2. 音频标签
-   1. <audio src="" controls autoplay></audio>
+   1. <audio src="" controls autoplay></audio>bt
    2. controls:显示播放的空间
    3. autoplay:自动播放
    4. loop:循环
@@ -63,7 +63,7 @@
 
 1. 文本框(text 和 password)
 
-   1. placeholder:文本框提示信息
+   1. ==placeholder:文本框提示信息==
 2. 单选框(radio)
 
    1. name:分组
